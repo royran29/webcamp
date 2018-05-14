@@ -1,0 +1,13 @@
+<svg width="494" height="80" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_1" height="71" width="585" fill="none" y="14" x="35"/>
+  <rect id="svg_13" height="58.825" width="18" fill="#FE4918" y="9.175" x="5"/>
+  <text font-style="normal" font-weight="bold" stroke="#000" transform="matrix(36.025940369404516,0,0,29.355079214711676,-1947.3345122522576,-1102.9715534557379) " xml:space="preserve" text-anchor="start" font-family="Oswald, sans-serif" font-size="3" id="svg_14" y="39.98049" x="54.815343" stroke-width="0" fill="#ffffff">TPCAMP</text>
+ </g>
+</svg>

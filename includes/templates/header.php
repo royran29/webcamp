@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>TPCAMP</title>
+        <title>GDLWEBCAMP</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,7 +47,7 @@
                             <p class="date"><i class="fas fa-calendar-alt"></i>10 - 12 Dec</p>
                             <p class="city"><i class="fas fa-map-marker-alt"></i>San José, CR</p>
                         </div>
-                        <h1 class="site-name">WEBCAMP</h1>
+                        <h1 class="site-name">GDLWEBCAMP</h1>
                         <p class="slogan">The best <span>web development</span> conference</p>
                     </div>
                 </div>

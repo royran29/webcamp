@@ -64,7 +64,7 @@
         <!-- Registrer users -->
         <section class="section container">
             <h2>User Registration</h2>
-            <form action="validate_registry.php" id="register" class="register" method="POST">
+            <form action="pagar.php" id="register" class="register" method="POST">
                 <div id="user_data" class="register box clearfix">
                     <div class="field">
                         <label for="name">Name:</label>

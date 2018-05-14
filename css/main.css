@@ -285,6 +285,7 @@ div.logo{
     width: 75%;
     float: left;
     height: 70px;
+    margin-bottom: 30px;
 } 
 div.logo img{
     width: 100%;
@@ -318,6 +319,7 @@ nav.main-navigation a{
     display: block;
     text-align: center;
     margin-bottom: 20px;
+    clear: both;
 }
 nav.main-navigation a:hover{
     background: #fe4918;
@@ -347,7 +349,7 @@ nav.main-navigation a:last-child:hover{
 }
 /*Menu movil*/
 div.mobile-menu{
-    width: 60px;
+    width: 25%;
     display: block;
     float: right;
     text-align: right;
@@ -367,6 +369,8 @@ div.mobile-menu span{
     margin-bottom: 6px;
     background: white;
     display: block;
+    width: 35%;
+    margin-left: 65%;
 }
 /*Program*/
 section.program{
@@ -382,6 +386,7 @@ div.program-content{
     left: 0;
     height: 100%;
     width: 100%;
+    
 }
 div.event-program{
     background: rgba(255,255,255,0.7);
