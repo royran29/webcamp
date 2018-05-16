@@ -1,7 +1,7 @@
 <?php
 
-if(!isset($_POST['producto'], $_POST['precio'])){
-    exit('Hubo un error');
+if(!isset($_POST['submit'])){
+    exit('There was a mistake');
 }
 
 use PayPal\Api\Payer;
@@ -15,12 +15,52 @@ use PayPal\Api\Payment;
 
 require 'includes/paypal.php';
 
-$producto = htmlspecialchars($_POST['producto']);
-$precio = htmlspecialchars($_POST['precio']);
-$precio = (int) $precio;
-$envio = 0;
-$total = $precio + $envio;
 
+if(isset($_POST['submit'])){
+    $name = $_POST['name'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $gift = $_POST['gift'];
+    $total = $_POST['total'];
+    $date = date('Y-m-d H:i:s');
+
+    //Orders
+    $extra = $_POST['extra'];
+
+    $shirts = $_POST['extra']['shirt']['amount'];
+    $shirtPrice = $_POST['extra']['shirt']['price'];
+
+    $stickers = $_POST['extra']['stickers']['amount'];
+    $stickerPrice = $_POST['extra']['stickers']['price'];
+   
+    $tickets = $_POST['tickets'];
+    $numTickets = $tickets;
+
+    include_once 'includes/functions/functions.php';
+
+    $order = products_json($tickets, $shirts, $stickers);
+
+    //Events
+    $events = $_POST['register'];
+    $register = events_json($events);
+    try{
+        require_once('includes/functions/db_conection.php');
+        //Insert with staments
+        //This way helps to aviod SQL Injection
+        $stmt = $conn->prepare("INSERT INTO registrados(nombre_registrado, apellido_registrado, email_registrado, fecha_registro, pases_articulos, talleres_registrados, regalo, total_pagado) VALUES (?,?,?,?,?,?,?,?)");
+        $stmt->bind_param("ssssssis", $name, $lastName, $email, $date, $order,$register, $gift, $total);
+        $stmt->execute();
+        $stmt->close();
+        $conn->close();
+        //Esto es para evitar un doble insercion con un refresh.
+        //Para q funcione el codigo php debe estar arriba sin q 
+        //nada haya sido enviado al navegador y sin lineas vacias
+        header('Location: validate_registry.php?success=1');
+    }
+    catch(\Exception $e){
+        echo $e->getMessage;
+    }
+}
 //Crear instacia de pago
 $compra = new Payer();
 //establecer el metodo de pago
@@ -28,11 +68,40 @@ $compra->setPaymentMethod('paypal');
 
 //Crear instacia de producto o item
 $articulo = new Item();
-
 $articulo->setName($producto)//Nombre del producto
          ->setCurrency('USD')//moneda
          ->setQuantity(1)//cantidad
          ->setPrice($precio);//precio
+
+$i = 0;
+foreach ($numTickets as $key => $value) {
+    if ((int)$value['amount'] > 0) {
+        ${"articulo$i"} = new Item();
+        ${"articulo$i"}->setName("Pass: " . $key)//Nombre del producto
+                    ->setCurrency('USD')//moneda
+                    ->setQuantity((int)$value['amount'])//cantidad
+                    ->setPrice((int)$value['price']);//precio}
+        $i++;
+    }
+}
+
+foreach ($extra as $key => $value) {
+    if ((int)$value['amount'] > 0) {
+
+        if ($key == 'shirt') {
+            $price = (float)$value['price'] * .93;//tiene descuento
+        }else{
+            $precio = (int) $value['price'];
+        }
+
+        ${"articulo$i"} = new Item();
+        ${"articulo$i"}->setName("Extras: " . $key)//Nombre del producto
+                    ->setCurrency('USD')//moneda
+                    ->setQuantity((int)$value['amount'])//cantidad
+                    ->setPrice($precio);//precio}
+        $i++;
+    }
+}
 
 //Instacia de lista de articulos
 $listaArticulos = new ItemList();
@@ -84,4 +153,5 @@ catch(PayPal\Exception\PayPalConnectionException $pce){
 $aprovado = $pago->getApprovalLink();
 
 //realiza el redireccionamiento
-header("Location: {$aprovado}");
+header("Location: {$aprovado}");*/
+?>

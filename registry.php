@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>TPCAMP</title>
+        <title>GDLWEBCAMP</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -36,7 +36,7 @@
                             <p class="date"><i class="fas fa-calendar-alt"></i>10 - 12 Dec</p>
                             <p class="city"><i class="fas fa-map-marker-alt"></i>San José, CR</p>
                         </div>
-                        <h1 class="site-name">TPCAMP</h1>
+                        <h1 class="site-name">GDLWEBCAMP</h1>
                         <p class="slogan">The best <span>web development</span> conference</p>
                     </div>
                 </div>
@@ -95,7 +95,8 @@
                                 </ul>
                                 <div class="order">
                                     <label for="pass_day">How many tickets</label>
-                                    <input type="number" id="pass_day" min="0" size="3" name="tickets[]" placeholder="0">
+                                    <input type="number" id="pass_day" min="0" size="3" name="tickets[one_day][amount]" placeholder="0">
+                                    <input type="hidden" value="30" name="tickets[one_day][price]">
                                 </div>
                             </div>
                         </li>
@@ -110,7 +111,8 @@
                                 </ul>
                                 <div class="order">
                                     <label for="full_pass">How many tickets</label>
-                                    <input type="number" id="full_pass" min="0" size="3" name="tickets[]" placeholder="0">
+                                    <input type="number" id="full_pass" min="0" size="3" name="tickets[full][amount]" placeholder="0">
+                                    <input type="hidden" value="50" name="tickets[full][price]">
                                 </div>
                             </div>
                         </li>
@@ -125,7 +127,8 @@
                                 </ul>
                                 <div class="order">
                                     <label for="pass_two_days">How many tickets</label>
-                                    <input type="number" id="pass_two_days" min="0" size="3" name="tickets[]" placeholder="0">
+                                    <input type="number" id="pass_two_days" min="0" size="3" name="tickets[two_days][amount]" placeholder="0">
+                                    <input type="hidden" value="45" name="tickets[two_days][price]">
                                 </div>
                             </div>
                         </li>
@@ -210,11 +213,13 @@
                          <div class="extras">
                              <div class="order">
                                  <label for="event_shirt">Event Shirt $10 <small>(7% discount)</small></label>
-                                 <input type="number" id="event_shirt" min="0" size="3" name="shirt" placeholder="0">
+                                 <input type="number" id="event_shirt" min="0" size="3" name="extra[shirt][amount]" placeholder="0">
+                                 <input type="hidden" value="10" name="extra[shirt][price]">
                              </div>
                              <div class="order">
                                 <label for="stickers">Pack of 10 stickers $2 <small></small></label>
-                                <input type="number" id="stickers" name="stickers" min="0" size="3" placeholder="0">
+                                <input type="number" id="stickers" name="extra[stickers][amount]" min="0" size="3" placeholder="0">
+                                <input type="hidden" value="2" name="extra[stickers][price]">
                             </div>
                             <div class="order"><label for="gift">Choose a gift</label> <br>
                                 <select id="gift" name="gift" required>
