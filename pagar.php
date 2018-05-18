@@ -50,12 +50,13 @@ if(isset($_POST['submit'])){
         $stmt = $conn->prepare("INSERT INTO registrados(nombre_registrado, apellido_registrado, email_registrado, fecha_registro, pases_articulos, talleres_registrados, regalo, total_pagado) VALUES (?,?,?,?,?,?,?,?)");
         $stmt->bind_param("ssssssis", $name, $lastName, $email, $date, $order,$register, $gift, $total);
         $stmt->execute();
+        $id_registry = $stmt->insert_id;
         $stmt->close();
         $conn->close();
         //Esto es para evitar un doble insercion con un refresh.
         //Para q funcione el codigo php debe estar arriba sin q 
         //nada haya sido enviado al navegador y sin lineas vacias
-        header('Location: validate_registry.php?success=1');
+       // header('Location: validate_registry.php?success=1');
     }
     catch(\Exception $e){
         echo $e->getMessage;
@@ -67,20 +68,23 @@ $compra = new Payer();
 $compra->setPaymentMethod('paypal');
 
 //Crear instacia de producto o item
-$articulo = new Item();
+/*$articulo = new Item();
 $articulo->setName($producto)//Nombre del producto
          ->setCurrency('USD')//moneda
          ->setQuantity(1)//cantidad
-         ->setPrice($precio);//precio
+         ->setPrice($precio);//precio*/
 
 $i = 0;
+$shoppingList = array();
 foreach ($numTickets as $key => $value) {
     if ((int)$value['amount'] > 0) {
         ${"articulo$i"} = new Item();
+        $shoppingList[] = ${"articulo$i"};
         ${"articulo$i"}->setName("Pass: " . $key)//Nombre del producto
                     ->setCurrency('USD')//moneda
                     ->setQuantity((int)$value['amount'])//cantidad
                     ->setPrice((int)$value['price']);//precio}
+                    
         $i++;
     }
 }
@@ -89,16 +93,17 @@ foreach ($extra as $key => $value) {
     if ((int)$value['amount'] > 0) {
 
         if ($key == 'shirt') {
-            $price = (float)$value['price'] * .93;//tiene descuento
+            $price = (float) $value['price'] * .93;//tiene descuento
         }else{
-            $precio = (int) $value['price'];
+            $price = (int) $value['price'];
         }
 
         ${"articulo$i"} = new Item();
+        $shoppingList[] = ${"articulo$i"};
         ${"articulo$i"}->setName("Extras: " . $key)//Nombre del producto
                     ->setCurrency('USD')//moneda
                     ->setQuantity((int)$value['amount'])//cantidad
-                    ->setPrice($precio);//precio}
+                    ->setPrice($price);//precio}
         $i++;
     }
 }
@@ -106,32 +111,32 @@ foreach ($extra as $key => $value) {
 //Instacia de lista de articulos
 $listaArticulos = new ItemList();
 //agregando articulos a la lista
-$listaArticulos->setItems(array($articulo));
+$listaArticulos->setItems($shoppingList);
 
-//Detalles de los productos
-$detalles = new Details();
-$detalles->setShipping($envio)
-         ->setSubtotal($precio);
-
+//Details
+//en este caso no es necesario xq no hay subtotal
+/*$details = new Details();
+$details->setShipping(0)
+        ->setSubTotal($total);*/
 
 //Estableciendo la cantidad
 $cantidad = new Amount();
 $cantidad->setCurrency('USD')
-         ->setTotal($total)
-         ->setDetails($detalles); //recibe una instacia de Details 
+         ->setTotal($total);
 
 //Transaccion
 $transaccion = new Transaction();
 $transaccion->setAmount($cantidad)//instacia de Amount
             ->setItemList($listaArticulos) //instacia de ItemList
-            ->setDescription('Pago ')//texto q sale al cobrar
-            ->setInvoiceNumber(uniqid());//numero de factura.. uniqid es como un ramdon solo para ejemplo
+            ->setDescription('Pago GDLWEBCAMP')//texto q sale al cobrar
+            ->setInvoiceNumber($id_registry);//numero de factura.. uniqid es como un ramdon solo para ejemplo
+
 
 
 //Urls para direccionar cuando se hace el pago
 $redireccionar = new RedirectUrls();
-$redireccionar->setReturnUrl(URL_SITIO . '/pago_finalizado.php?exito=true') //url a direccionar una vez aprovado el pago
-              ->setCancelUrl(URL_SITIO . '/pago_finalizado.php?exito=false');//url a direccinar cuando el usuario cancela la operacion o hay un error
+$redireccionar->setReturnUrl(URL_SITIO . "/payment_completed.php?exito=true&id_pago={$id_registry}") //url a direccionar una vez aprovado el pago
+              ->setCancelUrl(URL_SITIO . "/payment_completed.php?exito=false&id_pago={$id_registry}");//url a direccinar cuando el usuario cancela la operacion o hay un error
 
 //Realizar el pago
 $pago = new Payment();
@@ -153,5 +158,5 @@ catch(PayPal\Exception\PayPalConnectionException $pce){
 $aprovado = $pago->getApprovalLink();
 
 //realiza el redireccionamiento
-header("Location: {$aprovado}");*/
+header("Location: {$aprovado}");
 ?>
