@@ -21,6 +21,10 @@
 <!-- AdminLTE App -->
 <script src="js/adminlte.min.js"></script>
 
+<!-- DataTables -->
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
+
 <!-- Sweetalert -->
 <script src="js/sweetalert2.min.js"></script>
 
@@ -29,10 +33,9 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
-<script>
-  $(document).ready(function () {
-    $('.sidebar-menu').tree()
-  })
-</script>
+
+<!-- Custom js -->
+<script src="js/app.js"></script>
+
 </body>
 </html>

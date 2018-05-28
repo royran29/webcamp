@@ -18,6 +18,9 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="css/skins/_all-skins.min.css">
 
+   <!-- DataTables -->
+   <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
+
   <!-- Sweetalert2 -->
   <link rel="stylesheet" href="css/sweetalert2.min.css">
 

@@ -73,7 +73,7 @@
             <span>Administrators</span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-list-ul"></i> View All</a></li>
+            <li><a href="admin-list.php"><i class="fa fa-list-ul"></i> View All</a></li>
             <li><a href="create-admin.php"><i class="fa fa-plus"></i> Add</a></li>
           </ul>
         </li>
