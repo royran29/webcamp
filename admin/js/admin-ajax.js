@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#create-admin').on('submit', function(e) {
+    $('#save-registry').on('submit', function(e) {
         e.preventDefault();
         var data_form = $(this).serializeArray(); //create array with form's data
 

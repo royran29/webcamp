@@ -1,6 +1,6 @@
 <?php 
 
-if(isset($_POST['add-admin'])){
+if($_POST['registry'] == 'new' ){
 
     //die(json_encode($_POST));//return form data and exit
 
@@ -42,6 +42,10 @@ if(isset($_POST['add-admin'])){
 
     die(json_encode($answer));//return data and exit
 }
+
+if($_POST['registry'] == 'update' ){
+}
+/**************************************** */
 
 if(isset($_POST['login-admin'])){
     $user = $_POST['user'];

@@ -14,9 +14,7 @@ include_once 'templates/navigation.php';
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Blank page
-        <small>it all starts here</small>
+      <h1>List of administrators<small></small>
       </h1>
   
     </section>
@@ -26,11 +24,11 @@ include_once 'templates/navigation.php';
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title">Manage users</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="records" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>User</th>
@@ -53,7 +51,7 @@ include_once 'templates/navigation.php';
                         <td><?php echo $admin['usuario']; ?></td>
                         <td><?php echo $admin['nombre']; ?></td>
                         <td>
-                          <a href="admin-edit.php?id=<?php echo $admin['id_admin'] ?>" class="btn bg-orange btn-flat margin"><i class="fa fa-pencil"></i></a>
+                          <a href="edit-admin.php?id=<?php echo $admin['id_admin'] ?>" class="btn bg-orange btn-flat margin"><i class="fa fa-pencil"></i></a>
                           <a href="#" data-id="<?php echo $admin['id_admin']?>" data-type="admin" class="btn bg-maroon btn-flat margin erase-registry"><i class="fa fa-trash"></i></a>
                         </td>
                       </tr>
